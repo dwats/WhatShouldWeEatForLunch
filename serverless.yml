@@ -1,0 +1,28 @@
+service: WhatShouldWeEatForLunch-api
+
+provider:
+  name: aws
+  region: us-west-2
+  runtime: nodejs8.10
+
+package:
+  include:
+    - node_modules/**
+
+functions:
+  restaurants:
+    name: ${self:service}-fnname()
+    handler: lib/handler/restaurants/fnname().handler
+    events:
+      - http:
+          path: v1/restaurants/nearme
+          method: post
+          cors: true
+      - http:
+          path: v1/restaurants/nearlocation
+          method: post
+          cors: true
+      - http:
+          path: v1/restaurants/static
+          method: get
+          cors: true
